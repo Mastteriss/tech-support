@@ -88,14 +88,20 @@ echo ⏳ Ожидание запуска сервера (5 секунд)...
 timeout /t 5 /nobreak >nul
 
 echo.
-echo [7/8] Проверка заполнения базы данных...
+echo [7/8] Проверка и заполнение базы данных...
 echo.
 
-REM Проверяем, есть ли уже данные в БД
-python -c "import sqlite3; conn = sqlite3.connect('server/tech_support.db'); cursor = conn.cursor(); cursor.execute('SELECT COUNT(*) FROM questions'); count = cursor.fetchone()[0]; conn.close(); exit(0 if count > 0 else 1)" >nul 2>&1
+REM Проверяем, существует ли файл БД и есть ли в нём данные
+set DB_EMPTY=1
+if exist server\tech_support.db (
+    python -c "import sqlite3; conn = sqlite3.connect('server/tech_support.db'); cursor = conn.cursor(); cursor.execute('SELECT COUNT(*) FROM questions'); count = cursor.fetchone()[0]; conn.close(); exit(0 if count > 0 else 1)" >nul 2>&1
+    if not errorlevel 1 (
+        set DB_EMPTY=0
+    )
+)
 
-if errorlevel 1 (
-    echo 📋 База данных пуста. Заполнение тестовыми данными...
+if %DB_EMPTY%==1 (
+    echo 📋 База данных пуста или отсутствует. Заполнение тестовыми данными...
     python seed.py
     echo ✅ Заполнение завершено!
 ) else (
