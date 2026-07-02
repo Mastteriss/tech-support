@@ -7,7 +7,7 @@ echo     СИСТЕМА ТЕХНИЧЕСКОЙ ПОДДЕРЖКИ
 echo ============================================================
 echo.
 
-echo [1/6] Проверка наличия Python...
+echo [1/8] Проверка наличия Python...
 python --version >nul 2>&1
 if errorlevel 1 (
     echo ❌ Python не найден!
@@ -22,7 +22,7 @@ if errorlevel 1 (
 echo ✅ Python найден
 
 echo.
-echo [2/6] Проверка виртуального окружения...
+echo [2/8] Проверка виртуального окружения...
 if not exist venv (
     echo Создание виртуального окружения...
     python -m venv venv
@@ -30,12 +30,12 @@ if not exist venv (
 echo ✅ Виртуальное окружение готово
 
 echo.
-echo [3/6] Активация виртуального окружения...
+echo [3/8] Активация виртуального окружения...
 call venv\Scripts\activate
 echo ✅ Виртуальное окружение активировано
 
 echo.
-echo [4/6] Проверка и установка зависимостей...
+echo [4/8] Проверка и установка зависимостей...
 pip show flask >nul 2>&1
 if errorlevel 1 (
     echo Установка зависимостей...
@@ -46,7 +46,7 @@ if errorlevel 1 (
 )
 
 echo.
-echo [5/6] Запуск тестов...
+echo [5/8] Запуск тестов...
 echo.
 echo ============================================================
 echo     ЗАПУСК ТЕСТОВ
@@ -77,14 +77,34 @@ echo ============================================================
 echo.
 
 echo.
-echo [6/6] Запуск приложения...
+echo [6/8] Запуск сервера...
 echo.
 
 REM Запускаем сервер в новом окне
 start "Сервер Tech Support" cmd /k "cd server && python app.py"
 
-REM Ждём 3 секунды
-timeout /t 3 /nobreak >nul
+REM Ждём 5 секунд для полного запуска сервера
+echo ⏳ Ожидание запуска сервера (5 секунд)...
+timeout /t 5 /nobreak >nul
+
+echo.
+echo [7/8] Проверка заполнения базы данных...
+echo.
+
+REM Проверяем, есть ли уже данные в БД
+python -c "import sqlite3; conn = sqlite3.connect('server/tech_support.db'); cursor = conn.cursor(); cursor.execute('SELECT COUNT(*) FROM questions'); count = cursor.fetchone()[0]; conn.close(); exit(0 if count > 0 else 1)" >nul 2>&1
+
+if errorlevel 1 (
+    echo 📋 База данных пуста. Заполнение тестовыми данными...
+    python seed.py
+    echo ✅ Заполнение завершено!
+) else (
+    echo ✅ База данных уже содержит данные
+)
+
+echo.
+echo [8/8] Запуск клиента...
+echo.
 
 REM Запускаем клиент в новом окне
 start "Клиент Tech Support" cmd /k "cd client && python client.py"
@@ -96,6 +116,9 @@ echo ============================================================
 echo.
 echo    Сервер: http://localhost:5000
 echo    Клиент: Открыто отдельное окно
+echo.
+echo    База данных заполнена тестовыми данными!
+echo    В меню будут отображаться вопросы и консультанты.
 echo.
 echo    Результаты тестов показаны выше
 echo.
