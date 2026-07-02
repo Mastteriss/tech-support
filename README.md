@@ -333,7 +333,9 @@ tech-support/
 ├── requirements.txt             # Зависимости
 ├── README.md                    # Описание проекта
 ├── start.bat                    # Быстрый запуск (Windows)
-└── start.sh                     # Быстрый запуск (macOS/Linux)
+├── start.sh                     # Быстрый запуск (macOS/Linux)
+├── run.py                       # Универсальный запуск
+└── test_run.py                  # Запуск всех тестов
 ```
 
 ---
