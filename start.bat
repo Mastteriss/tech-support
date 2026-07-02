@@ -1,13 +1,53 @@
 @echo off
+chcp 65001 >nul
+title Система технической поддержки
+
 echo ============================================================
 echo     СИСТЕМА ТЕХНИЧЕСКОЙ ПОДДЕРЖКИ
 echo ============================================================
 echo.
-echo Запуск сервера и клиента...
-echo.
 
-REM Активируем виртуальное окружение
+echo [1/5] Проверка наличия Python...
+python --version >nul 2>&1
+if errorlevel 1 (
+    echo ❌ Python не найден!
+    echo.
+    echo Скачайте и установите Python с сайта: https://www.python.org/downloads/
+    echo.
+    echo ⚠️ При установке ОБЯЗАТЕЛЬНО отметьте галочку "Add Python to PATH"
+    echo.
+    pause
+    exit /b
+)
+echo ✅ Python найден
+
+echo.
+echo [2/5] Проверка виртуального окружения...
+if not exist venv (
+    echo Создание виртуального окружения...
+    python -m venv venv
+)
+echo ✅ Виртуальное окружение готово
+
+echo.
+echo [3/5] Активация виртуального окружения...
 call venv\Scripts\activate
+echo ✅ Виртуальное окружение активировано
+
+echo.
+echo [4/5] Проверка и установка зависимостей...
+pip show flask >nul 2>&1
+if errorlevel 1 (
+    echo Установка зависимостей...
+    pip install Flask flask-cors requests
+    echo ✅ Зависимости установлены
+) else (
+    echo ✅ Зависимости уже установлены
+)
+
+echo.
+echo [5/5] Запуск приложения...
+echo.
 
 REM Запускаем сервер в новом окне
 start "Сервер Tech Support" cmd /k "cd server && python app.py"
@@ -19,11 +59,13 @@ REM Запускаем клиент в новом окне
 start "Клиент Tech Support" cmd /k "cd client && python client.py"
 
 echo.
+echo ============================================================
 echo ✅ Приложение запущено!
+echo ============================================================
 echo.
-echo    - Сервер работает в отдельном окне
-echo    - Клиент работает в отдельном окне
+echo    Сервер: http://localhost:5000
+echo    Клиент: Открыто отдельное окно
 echo.
-echo ⚠️ Для остановки закройте окна терминала
+echo    Для остановки закройте окна терминалов
 echo.
 pause
