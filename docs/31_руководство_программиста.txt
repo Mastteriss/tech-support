@@ -1,0 +1,53 @@
+Руководство программиста
+"Система технической поддержки"
+
+1. ОБЩИЕ СВЕДЕНИЯ
+Программа представляет собой клиент-серверное приложение для 
+управления системой технической поддержки.
+
+2. СТРУКТУРА ПРОГРАММЫ
+Программа имеет следующую структуру:
+- server/ - серверная часть
+  - app.py - основной модуль сервера, API
+  - models.py - модели данных
+  - database.py - модуль работы с БД
+  - test_models.py - тесты моделей
+  - test_api.py - тесты API
+- client/ - клиентская часть
+  - client.py - графический интерфейс
+
+3. ОПИСАНИЕ ОСНОВНЫХ КЛАССОВ
+3.1. Consultant - модель консультанта
+  - id, name, specialization, email, questions_handled
+  - методы: to_dict, from_dict, increment_handled
+
+3.2. Question - модель вопроса
+  - id, title, description, client_name, priority, status
+  - методы: assign_consultant, add_answer, resolve, close
+
+3.3. Answer - модель ответа
+  - id, question_id, consultant_id, content, created_at
+
+3.4. TechSupportService - сервис управления данными
+  - методы: create_question, assign_consultant_to_question,
+    add_answer, resolve_question, get_statistics
+
+3.5. Database - класс для работы с SQLite
+  - методы: get_consultants, save_consultant, get_questions,
+    save_question, get_answers, save_answer
+
+4. ОПИСАНИЕ API
+4.1. GET /api/consultants - получить список консультантов
+4.2. POST /api/consultants - создать консультанта
+4.3. GET /api/questions - получить список вопросов
+4.4. POST /api/questions - создать вопрос
+4.5. GET /api/questions/<id> - получить вопрос по ID
+4.6. PUT /api/questions/<id>/assign - назначить консультанта
+4.7. PUT /api/questions/<id>/resolve - отметить как решенный
+4.8. POST /api/answers - добавить ответ
+4.9. GET /api/statistics - получить статистику
+
+5. ИНСТРУКЦИЯ ПО УСТАНОВКЕ
+pip install -r requirements.txt
+python server/app.py
+python client/client.py
