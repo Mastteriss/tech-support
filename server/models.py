@@ -108,6 +108,10 @@ class Question:
     
     def to_dict(self) -> dict:
         """Преобразует объект в словарь для JSON"""
+        # Проверяем, что created_at и updated_at — это datetime объекты
+        created_at_str = self.created_at.isoformat() if hasattr(self.created_at, 'isoformat') else str(self.created_at)
+        updated_at_str = self.updated_at.isoformat() if hasattr(self.updated_at, 'isoformat') else str(self.updated_at)
+        
         return {
             'id': self.id,
             'title': self.title,
@@ -115,8 +119,8 @@ class Question:
             'client_name': self.client_name,
             'priority': self.priority,
             'status': self.status,
-            'created_at': self.created_at.isoformat(),
-            'updated_at': self.updated_at.isoformat(),
+            'created_at': created_at_str,
+            'updated_at': updated_at_str,
             'consultant_id': self.consultant_id,
             'answers': [a.to_dict() for a in self._answers]
         }
@@ -134,9 +138,11 @@ class Question:
         question.status = data.get('status', cls.STATUS_NEW)
         question.consultant_id = data.get('consultant_id')
         if 'created_at' in data:
-            question.created_at = datetime.fromisoformat(data['created_at'])
+            created_at = data['created_at']
+            question.created_at = datetime.fromisoformat(created_at) if isinstance(created_at, str) else created_at
         if 'updated_at' in data:
-            question.updated_at = datetime.fromisoformat(data['updated_at'])
+            updated_at = data['updated_at']
+            question.updated_at = datetime.fromisoformat(updated_at) if isinstance(updated_at, str) else updated_at
         # Восстанавливаем ответы
         if 'answers' in data:
             question._answers = [Answer.from_dict(a) for a in data['answers']]
@@ -156,12 +162,13 @@ class Answer:
     
     def to_dict(self) -> dict:
         """Преобразует объект в словарь для JSON"""
+        created_at_str = self.created_at.isoformat() if hasattr(self.created_at, 'isoformat') else str(self.created_at)
         return {
             'id': self.id,
             'question_id': self.question_id,
             'consultant_id': self.consultant_id,
             'content': self.content,
-            'created_at': self.created_at.isoformat()
+            'created_at': created_at_str
         }
     
     @classmethod
@@ -174,7 +181,8 @@ class Answer:
             content=data['content']
         )
         if 'created_at' in data:
-            answer.created_at = datetime.fromisoformat(data['created_at'])
+            created_at = data['created_at']
+            answer.created_at = datetime.fromisoformat(created_at) if isinstance(created_at, str) else created_at
         return answer
 
 
