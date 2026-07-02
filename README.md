@@ -39,48 +39,73 @@
 ```bash
 python --version
 # Должно показать: Python 3.8 или выше
-2. Git (для скачивания через терминал)
-ОС	Ссылка для скачивания
-Windows	git-scm.com/download/win
-macOS	git-scm.com/download/mac
-Linux	sudo apt install git
-Проверка установки:
-bash
+```
+
+---
+
+### 2. Git (для скачивания через терминал)
+
+| ОС | Ссылка для скачивания |
+|----|----------------------|
+| **Windows** | [git-scm.com/download/win](https://git-scm.com/download/win) |
+| **macOS** | [git-scm.com/download/mac](https://git-scm.com/download/mac) |
+| **Linux** | `sudo apt install git` |
+
+#### Проверка установки:
+```bash
 git --version
 # Должно показать: git version 2.x.x
-3. VS Code (рекомендуется)
-ОС	Ссылка для скачивания
-Windows	code.visualstudio.com/download
-macOS	code.visualstudio.com/download
-Linux	code.visualstudio.com/download
-Расширения для VS Code (рекомендуемые):
-Python (от Microsoft) — для работы с Python
+```
 
-Mermaid Preview — для просмотра диаграмм
+---
 
-📦 Что докачивать не нужно (уже в проекте)
-Компонент	Где находится	Описание
-Код сервера	server/	Flask приложение с REST API
-Код клиента	client/	GUI приложение на Tkinter
-Документация	docs/	8 документов по ГОСТ 19
-Зависимости	requirements.txt	Список библиотек для установки
-Тесты	server/test_*.py	Модульные тесты
-🚀 Установка и запуск
-Шаг 1: Скачайте проект
-Способ 1: Через Git (рекомендуется)
-bash
+### 3. VS Code (рекомендуется)
+
+| ОС | Ссылка для скачивания |
+|----|----------------------|
+| **Windows** | [code.visualstudio.com/download](https://code.visualstudio.com/download) |
+| **macOS** | [code.visualstudio.com/download](https://code.visualstudio.com/download) |
+| **Linux** | [code.visualstudio.com/download](https://code.visualstudio.com/download) |
+
+#### Расширения для VS Code (рекомендуемые):
+- **Python** (от Microsoft) — для работы с Python
+- **Mermaid Preview** — для просмотра диаграмм
+
+---
+
+## 📦 Что докачивать не нужно (уже в проекте)
+
+| Компонент | Где находится | Описание |
+|-----------|---------------|----------|
+| **Код сервера** | `server/` | Flask приложение с REST API |
+| **Код клиента** | `client/` | GUI приложение на Tkinter |
+| **Документация** | `docs/` | 8 документов по ГОСТ 19 |
+| **Зависимости** | `requirements.txt` | Список библиотек для установки |
+| **Тесты** | `server/test_*.py` | Модульные тесты |
+
+---
+
+## 🚀 Установка и запуск
+
+### Шаг 1: Скачайте проект
+
+#### Способ 1: Через Git (рекомендуется)
+```bash
 git clone https://github.com/Mastteriss/tech-support.git
 cd tech-support
-Способ 2: Скачать ZIP-архив
-Перейдите на: https://github.com/Mastteriss/tech-support
+```
 
-Нажмите "Code" → "Download ZIP"
+#### Способ 2: Скачать ZIP-архив
+1. Перейдите на: https://github.com/Mastteriss/tech-support
+2. Нажмите **"Code"** → **"Download ZIP"**
+3. Распакуйте архив в удобное место
 
-Распакуйте архив в удобное место
+---
 
-Шаг 2: Установите зависимости
-Создайте виртуальное окружение:
-bash
+### Шаг 2: Установите зависимости
+
+#### Создайте виртуальное окружение:
+```bash
 # Windows
 python -m venv venv
 venv\Scripts\activate
@@ -88,37 +113,54 @@ venv\Scripts\activate
 # macOS / Linux
 python3 -m venv venv
 source venv/bin/activate
-Установите библиотеки:
-bash
+```
+
+#### Установите библиотеки:
+```bash
 pip install -r requirements.txt
-Что установится:
-Библиотека	Версия	Для чего
-Flask	2.3.2	Веб-сервер
-flask-cors	4.0.0	Поддержка CORS
-requests	2.31.0	HTTP клиент
-Шаг 3: Запустите приложение
-Запуск сервера (Терминал 1):
-bash
+```
+
+#### Что установится:
+| Библиотека | Версия | Для чего |
+|------------|--------|----------|
+| Flask | 2.3.2 | Веб-сервер |
+| flask-cors | 4.0.0 | Поддержка CORS |
+| requests | 2.31.0 | HTTP клиент |
+
+---
+
+### Шаг 3: Запустите приложение
+
+#### Запуск сервера (Терминал 1):
+```bash
 cd server
 python app.py
-Ожидаемый вывод:
+```
 
-text
+**Ожидаемый вывод:**
+```
 * Serving Flask app 'app'
 * Debug mode: on
 * Running on http://127.0.0.1:5000
-⚠️ Не закрывайте этот терминал! Сервер должен работать постоянно.
+```
 
-Запуск клиента (Терминал 2):
-bash
+> ⚠️ **Не закрывайте этот терминал!** Сервер должен работать постоянно.
+
+#### Запуск клиента (Терминал 2):
+```bash
 cd client
 python client.py
-Откроется окно приложения! 🎉
+```
 
-🔧 Быстрый запуск (для Windows)
-Создайте файл start.bat в корневой папке проекта:
+**Откроется окно приложения!** 🎉
 
-batch
+---
+
+## 🔧 Быстрый запуск (для Windows)
+
+Создайте файл `start.bat` в корневой папке проекта:
+
+```batch
 @echo off
 chcp 65001 >nul
 echo ==================================================
@@ -143,12 +185,17 @@ echo.
 echo ⚠️ Для остановки закройте окна терминалов
 echo.
 pause
-Теперь достаточно дважды кликнуть на start.bat.
+```
 
-🐧 Быстрый запуск (для macOS / Linux)
-Создайте файл start.sh:
+Теперь достаточно **дважды кликнуть** на `start.bat`.
 
-bash
+---
+
+## 🐧 Быстрый запуск (для macOS / Linux)
+
+Создайте файл `start.sh`:
+
+```bash
 #!/bin/bash
 echo "=================================================="
 echo "     СИСТЕМА ТЕХНИЧЕСКОЙ ПОДДЕРЖКИ"
@@ -172,13 +219,19 @@ fi
 echo ""
 echo "✅ Приложение запущено!"
 echo ""
-Дайте права на выполнение:
+```
 
-bash
+Дайте права на выполнение:
+```bash
 chmod +x start.sh
 ./start.sh
-🧪 Запуск тестов
-bash
+```
+
+---
+
+## 🧪 Запуск тестов
+
+```bash
 cd server
 
 # Тесты моделей (16 тестов)
@@ -189,52 +242,62 @@ python test_api.py
 
 # Все тесты вместе
 python -m unittest discover
-Ожидаемый результат: ✅ Все 24 теста пройдены
+```
 
-❓ Частые проблемы и решения
-1. "python не найден"
-Причина: Python не установлен или не в PATH.
-Решение: Скачайте Python с https://python.org/ и при установке отметьте "Add Python to PATH"
+**Ожидаемый результат:** ✅ Все 24 теста пройдены
 
-2. "ModuleNotFoundError: No module named 'flask'"
-Причина: Библиотеки не установлены.
-Решение: pip install Flask flask-cors requests
+---
 
-3. "Port 5000 already in use"
-Причина: Порт занят другим приложением.
-Решение: Измените порт в server/app.py:
+## ❓ Частые проблемы и решения
 
-python
+### 1. "python не найден"
+**Причина:** Python не установлен или не в PATH.  
+**Решение:** Скачайте Python с https://python.org/ и при установке отметьте **"Add Python to PATH"**
+
+### 2. "ModuleNotFoundError: No module named 'flask'"
+**Причина:** Библиотеки не установлены.  
+**Решение:** `pip install Flask flask-cors requests`
+
+### 3. "Port 5000 already in use"
+**Причина:** Порт занят другим приложением.  
+**Решение:** Измените порт в `server/app.py`:
+```python
 app.run(debug=True, host='0.0.0.0', port=5001)
-4. "Tkinter не установлен"
-Windows: Tkinter обычно уже установлен.
-macOS: brew install python-tk
-Linux: sudo apt-get install python3-tk
+```
 
-5. "Permission denied" при запуске
-Решение: chmod +x start.sh
+### 4. "Tkinter не установлен"
+**Windows:** Tkinter обычно уже установлен.  
+**macOS:** `brew install python-tk`  
+**Linux:** `sudo apt-get install python3-tk`
 
-✅ Проверка работоспособности
-Проверка сервера:
+### 5. "Permission denied" при запуске
+**Решение:** `chmod +x start.sh`
+
+---
+
+## ✅ Проверка работоспособности
+
+### Проверка сервера:
 Откройте браузер и перейдите:
-
-text
+```
 http://localhost:5000/api/health
+```
 Должен появиться ответ:
-
-json
+```json
 {"status":"ok","message":"Tech Support API is running"}
-Проверка клиента:
+```
+
+### Проверка клиента:
 После запуска должно открыться окно с тремя вкладками:
+1. 📋 Вопросы
+2. 👤 Консультанты
+3. 📊 Статистика
 
-📋 Вопросы
+---
 
-👤 Консультанты
+## 📁 Структура проекта
 
-📊 Статистика
-
-📁 Структура проекта
-text
+```
 tech-support/
 ├── server/                      # Серверная часть
 │   ├── app.py                  # Flask приложение (REST API)
@@ -258,3 +321,16 @@ tech-support/
 ├── README.md                    # Описание проекта
 ├── start.bat                    # Быстрый запуск (Windows)
 └── start.sh                     # Быстрый запуск (macOS/Linux)
+```
+
+---
+
+## 👥 Автор
+
+**Иванов Иван Иванович**
+- Группа: ИС-202
+- GitHub: [@Mastteriss](https://github.com/Mastteriss)
+
+---
+
+**© 2024 - Система технической поддержки**
